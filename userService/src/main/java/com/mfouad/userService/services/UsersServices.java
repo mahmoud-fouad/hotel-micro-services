@@ -13,4 +13,6 @@ public interface UsersServices {
 	
 	public UserResponse getUser(String userId);
 
+	UserResponse getUserDetails(String id);
+
 }

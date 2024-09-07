@@ -1,13 +1,11 @@
 spring:
-  profiles:
-    active:
-    - native
   application:
     name: config-server
   cloud:
     config:
       server:
-        native:
-          search-locations: classpath:/configurations
+        git:
+          uri: https://github.com/mahmoud-fouad/hotel-micro-configuration-center
+          clone-on-start: true
 server:
   port: 8888

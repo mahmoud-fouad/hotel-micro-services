@@ -59,6 +59,13 @@ public class UserServicesImpl implements UsersServices{
 		
 		return mapper.toUserRepsone(user,userHotelRating);
 	}
+
+	@Override
+	public UserResponse getUserDetails(String id) {
+		User user= repo.findById(id)
+				.orElseThrow(() -> new  UserNotFoundException());
+		return mapper.toUserRepsone(user);
+	}
 	
 	
 
