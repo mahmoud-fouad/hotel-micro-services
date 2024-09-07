@@ -1,0 +1,19 @@
+spring:
+  data:
+    jpa:
+      repositories:
+        bootstrap-mode: default
+  jpa:
+    show-sql: true
+    database-platform: org.hibernate.dialect.H2Dialect
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: update
+    database: h2
+  datasource:
+    password: 
+    driver-class-name: org.h2.Driver
+    username: sa
+    url: jdbc:h2:file:/data/users-micro
+server:
+  port: 8081

@@ -1,0 +1,42 @@
+server:
+  port: 7777
+spring:  
+  cloud:
+      gateway:
+        routes:
+        - id: USER-SERVICE
+          uri: lb://USER-SERVICE
+          predicates:
+          - Path=/users
+          filters:
+          - RewritePath=/users,/api/v1/users
+        - id: USER-SERVICE-SEGMENT
+          uri: lb://USER-SERVICE
+          predicates:
+          - Path=/users/**
+          filters:
+          - RewritePath=/users/(?<segment>.*),/api/v1/users/$\{segment}
+        - id: HOTEL-SERVICE
+          uri: lb://HOTELS-SERVICE
+          predicates:
+          - Path=/hotels
+          filters:
+          - RewritePath=/hotels,/api/v1/hotels
+        - id: HOTEL-SERVICE-SEGMENT
+          uri: lb://HOTELS-SERVICE
+          predicates:
+          - Path=/hotels/**
+          filters:
+          - RewritePath=/hotels/(?<segment>.*),/api/v1/hotels/$\{segment}
+        - id: RATING-SERVICES
+          uri: lb://RATING-SERVICES
+          predicates:
+          - Path=/ratings
+          filters:
+          - RewritePath=/ratings,/api/v1/ratings
+        - id: RATING-SERVICES-SEGMENT
+          uri: lb://RATING-SERVICES
+          predicates:
+          - Path=/ratings/**
+          filters:
+          - RewritePath=/ratings/(?<segment>.*),/api/v1/ratings/$\{segment}

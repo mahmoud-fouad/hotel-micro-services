@@ -1,0 +1,16 @@
+management:
+  tracing:
+    sampling:
+      probability: 1
+spring:
+ zipkin:
+  base-url: http://zipkin-server:9411/
+eureka:
+ client:
+  serviceUrl:
+   defaultZone: http://localhost:8761/eureka
+ instance:
+  nonSecurePortEnabled: true
+  securePortEnabled: false
+  non-secure-port: ${server.port}
+  instanceId: ${spring.application.name}:${random.value}

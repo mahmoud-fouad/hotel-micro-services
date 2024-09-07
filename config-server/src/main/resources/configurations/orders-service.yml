@@ -1,0 +1,30 @@
+spring:
+  kafka:
+   producer:
+    bootstrap-servers: localhost:9092
+    key-serializer: org.apache.kafka.common.serialization.StringSerializer
+    value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    properties:
+     spring.json.type.mapping: orderConfirmation:com.mfouad.orders.kafka.OrderConfirmation
+  data:
+    jpa:
+      repositories:
+        bootstrap-mode: default
+  jpa:
+    show-sql: true
+    database-platform: org.hibernate.dialect.MariaDBDialect
+    hibernate:
+      ddl-auto: create
+    database: mysql
+  datasource:
+    password: root
+    driver-class-name: org.mariadb.jdbc.Driver
+    username: root
+    url: jdbc:mariadb://localhost:3306/orders-mico
+server:
+  port: 8070
+application:
+  config:
+    customer-url: http://localhost:8050/api/v1/customers
+    product-url: http://localhost:8060/api/v1/products
+    payment-url: http://localhost:8077/api/v1/payments

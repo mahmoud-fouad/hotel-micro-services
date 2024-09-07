@@ -1,0 +1,10 @@
+eureka:
+  instance:
+    nonSecurePortEnabled: true
+    securePortEnabled: false
+    hostname: localhost
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
