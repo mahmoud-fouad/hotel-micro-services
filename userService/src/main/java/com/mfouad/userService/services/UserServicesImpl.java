@@ -51,7 +51,6 @@ public class UserServicesImpl implements UsersServices{
 		
 		List<UserRatingRes> rating= restTemplate.exchange(String.format("http://RATING-SERVICES/api/v1/ratings/user/%s", user.getUserId()), HttpMethod.GET,null,new ParameterizedTypeReference<List<UserRatingRes>>() {} ).getBody();
 		List<UserHotelRatingRes> userHotelRating= rating.stream().map( r-> {
-//			HotelDetailsRes hotelDetails= restTemplate.exchange(String.format("http://HOTELS-SERVICE/api/v1/hotels/%s", r.hotelId()), HttpMethod.GET,null,new ParameterizedTypeReference<HotelDetailsRes>() {} ).getBody();
 			HotelDetailsRes hotelDetails= hotelClient.getHotel(r.hotelId());
 			
 			return new UserHotelRatingRes(hotelDetails.name(),hotelDetails.about(),hotelDetails.location() , r.rating(),r.feedback()) ;} )
@@ -65,6 +64,11 @@ public class UserServicesImpl implements UsersServices{
 		User user= repo.findById(id)
 				.orElseThrow(() -> new  UserNotFoundException());
 		return mapper.toUserRepsone(user);
+	}
+	
+	@Override
+	public List<UserRatingRes> getUserHotels(String userId) {
+		return restTemplate.exchange(String.format("http://RATING-SERVICES/api/v1/ratings/user/%s",userId), HttpMethod.GET,null,new ParameterizedTypeReference<List<UserRatingRes>>() {} ).getBody();
 	}
 	
 	

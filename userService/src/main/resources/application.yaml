@@ -11,7 +11,10 @@ management:
   endpoints:
     web:
       exposure:
-          include: health
+          include: 
+            - health
+            - info
+            - metrics
   endpoint:
     health:
       show-details: always
@@ -20,15 +23,22 @@ management:
       enabled: true 
 
 
-resilience4j.circuitbreaker:
-  instances:
-    ratingHotelBreaker:
-      registerHealthIndicator: true
-      eventConsumerBufferSize: 10
-      failureRateThreshold: 50
-      waitDurationInOpenState: 50s
-      minimumNumberOfCalls: 5
-      automaticTransitionFromOpenToHalfOpenEnabled: true
-      permittedNumberOfCallsInHalfOpenState: 2
-      slidingWindowSize: 10
-      slidingWindowType: count-based
+resilience4j:
+  circuitbreaker:
+    instances:
+      ratingHotelBreaker:
+        registerHealthIndicator: true
+        eventConsumerBufferSize: 10
+        failureRateThreshold: 50
+        waitDurationInOpenState: 50s
+        minimumNumberOfCalls: 5
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+        permittedNumberOfCallsInHalfOpenState: 2
+        slidingWindowSize: 10
+        slidingWindowType: count-based
+  retry:
+    instances:
+      ratingHotelBreaker:
+        max-attempts: 4
+        wait-duration: 2s
+      
